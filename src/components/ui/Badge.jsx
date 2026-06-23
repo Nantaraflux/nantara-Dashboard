@@ -1,12 +1,12 @@
 import React from 'react'
 
 const variants = {
-  default: 'bg-bg-elevated text-txt-secondary',
-  success: 'bg-success/15 text-success',
-  warning: 'bg-warning/15 text-warning',
-  danger: 'bg-danger/15 text-danger',
-  info: 'bg-info/15 text-info',
-  accent: 'bg-accent-primary/15 text-accent-secondary',
+  default: 'bg-bg-hover text-txt-secondary border border-border',
+  success: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+  warning: 'bg-amber-50 text-amber-700 border border-amber-200',
+  danger: 'bg-red-50 text-red-700 border border-red-200',
+  info: 'bg-cyan-50 text-cyan-700 border border-cyan-200',
+  accent: 'bg-indigo-50 text-indigo-700 border border-indigo-200',
 }
 
 const statusMap = {
@@ -48,7 +48,7 @@ const statusMap = {
 export default function Badge({ children, variant, status }) {
   const v = variant || statusMap[children?.toString().toLowerCase()] || statusMap[status] || 'default'
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium uppercase tracking-wide ${variants[v]}`}>
+    <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-semibold ${variants[v]} transition-colors`}>
       {children}
     </span>
   )

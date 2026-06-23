@@ -39,10 +39,10 @@ export default function DataTable({
 
   if (loading) {
     return (
-      <div className="border border-border rounded-md overflow-hidden">
+      <div className="border border-border rounded-xl overflow-hidden shadow-sm">
         <div className="bg-bg-elevated">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-10 border-b border-border flex items-center px-4 gap-4 animate-pulse">
+            <div key={i} className="h-12 border-b border-border last:border-0 flex items-center px-6 gap-4 animate-pulse">
               {Array.from({ length: 4 }).map((_, j) => (
                 <div key={j} className="h-3 bg-bg-surface rounded flex-1" />
               ))}
@@ -55,30 +55,38 @@ export default function DataTable({
 
   if (!data.length) {
     return (
-      <div className="border border-border rounded-md p-8 text-center">
-        <div className="text-txt-tertiary text-[13px] mb-3">{emptyMessage}</div>
+      <div className="border border-border rounded-xl p-12 text-center bg-bg-surface shadow-sm">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" strokeWidth="1.5" className="mx-auto mb-3 opacity-60">
+          <path d="M20 21H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z" />
+          <path d="M16 3v4" />
+          <path d="M8 3v4" />
+          <path d="M4 11h16" />
+        </svg>
+        <div className="text-txt-secondary text-[13px] font-medium mb-3">{emptyMessage}</div>
         {emptyAction}
       </div>
     )
   }
 
   return (
-    <div className="border border-border rounded-md overflow-hidden">
+    <div className="border border-border rounded-xl overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="bg-bg-surface border-b border-border">
+            <tr className="bg-gradient-to-r from-blue-50 to-purple-50 border-b border-border">
               {columns.map(col => (
                 <th
                   key={col.key}
-                  className="text-left text-label text-txt-secondary px-4 h-10 font-medium cursor-pointer hover:text-txt-primary select-none whitespace-nowrap"
+                  className="text-left text-label text-txt-secondary px-6 py-3.5 font-semibold cursor-pointer hover:text-txt-primary select-none whitespace-nowrap transition-colors"
                   style={{ width: col.width }}
                   onClick={() => col.sortable !== false && handleSort(col.key)}
                 >
-                  {col.label}
-                  {sortCol === col.key && (
-                    <span className="ml-1 text-accent-secondary">{sortDir === 'asc' ? '↑' : '↓'}</span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {col.label}
+                    {sortCol === col.key && (
+                      <span className="text-accent-primary font-bold">{sortDir === 'asc' ? '↑' : '↓'}</span>
+                    )}
+                  </div>
                 </th>
               ))}
             </tr>
@@ -87,11 +95,13 @@ export default function DataTable({
             {paged.map((row, i) => (
               <tr
                 key={row.id || i}
-                className={`h-10 border-b border-border last:border-0 ${i % 2 === 0 ? 'bg-bg-elevated' : 'bg-bg-elevated/50'} ${onRowClick ? 'cursor-pointer hover:bg-bg-surface' : ''} transition-colors`}
+                className={`border-b border-border last:border-0 h-12 ${
+                  onRowClick ? 'cursor-pointer hover:bg-blue-50/50 transition-colors' : ''
+                }`}
                 onClick={() => onRowClick?.(row)}
               >
                 {columns.map(col => (
-                  <td key={col.key} className="px-4 text-[13px] text-txt-primary whitespace-nowrap">
+                  <td key={col.key} className="px-6 py-3 text-[13px] text-txt-primary whitespace-nowrap font-medium">
                     {col.render ? col.render(row[col.key], row) : (row[col.key] ?? '—')}
                   </td>
                 ))}
@@ -101,24 +111,24 @@ export default function DataTable({
         </table>
       </div>
       {totalPages > 1 && (
-        <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-bg-surface">
-          <span className="text-[12px] text-txt-tertiary">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-border bg-bg-elevated">
+          <span className="text-[12px] text-txt-secondary font-medium">
             {sorted.length} records · Page {page + 1} of {totalPages}
           </span>
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             <button
               onClick={() => setPage(p => Math.max(0, p - 1))}
               disabled={page === 0}
-              className="px-2.5 py-1 text-[12px] rounded bg-bg-elevated text-txt-secondary hover:text-txt-primary disabled:opacity-30 disabled:cursor-not-allowed border border-border"
+              className="px-3 py-1.5 text-[12px] font-medium rounded-lg bg-bg-surface border border-border text-txt-secondary hover:text-txt-primary hover:border-accent-light disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
-              Prev
+              ← Prev
             </button>
             <button
               onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
               disabled={page >= totalPages - 1}
-              className="px-2.5 py-1 text-[12px] rounded bg-bg-elevated text-txt-secondary hover:text-txt-primary disabled:opacity-30 disabled:cursor-not-allowed border border-border"
+              className="px-3 py-1.5 text-[12px] font-medium rounded-lg bg-bg-surface border border-border text-txt-secondary hover:text-txt-primary hover:border-accent-light disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
-              Next
+              Next →
             </button>
           </div>
         </div>
