@@ -1,8 +1,0 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "env": {
-    "CI": "false"
-  },
-  "nodeVersion": "18.x"
-}
