@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #0F6E56;
+  --color-primary-hover: #1D9E75;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1F2D40 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #1F2D40;
+  border-radius: 3px;
+}
+
+body {
+  margin: 0;
+  background: #0A0E1A;
+  color: #F0F4F8;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, select, textarea, button {
+  font-family: inherit;
+}
